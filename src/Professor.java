@@ -1,22 +1,34 @@
+import java.util.Objects;
+
 public class Professor extends Person {
 
-    public Faculty getFaculty() { return faculty; }
-
+    public void setFaculty(Faculty f){ faculty = f;}
+    public void setDepartment(Department d){ department = d;}
 
     /** Professor constructor
-     * @param faculty
-     * @param department
      * @param surname
      * @param name
      */
-    public Professor(Faculty faculty, Department department, String surname, String name) {
+    public Professor(String surname, String name) {
         super(name, surname);
-        this.faculty = faculty;
-        this.department = department;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Professor professor = (Professor) o;
+        return Objects.equals(getDepartment(), professor.getDepartment()) &&
+                Objects.equals(getName(), professor.getName()) && Objects.equals(getSurname(), professor.getSurname());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getDepartment(), getName(), getSurname());
     }
 
     @Override
     public String toString() {
-        return "Викладач " + surname + " " + name + " - факультет " + faculty + " ; кафедра " + department;
+        return "Викладач " + getSurname() + " " + getName() + " - факультет " + getFaculty() + " ; кафедра " + getDepartment();
     }
 }

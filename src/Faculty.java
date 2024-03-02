@@ -4,7 +4,7 @@ public class Faculty {
 
     private String name;
     private static Department[] departments = new Department[0];
-    public static Student[] students = new Student[0];
+    public static Person[] staff = new Person[0];
 
     public Faculty(String name) {
         this.name = name;
@@ -28,8 +28,8 @@ public class Faculty {
         departments[departments.length-1]=department;
     }
     public void addStudent(Student student) {
-        students = Arrays.copyOf(students,students.length+1);
-        students[students.length-1]=student;
+        staff = Arrays.copyOf(staff, staff.length+1);
+        staff[staff.length-1]=student;
     }
 
     public void removeDepartment(Department department) {

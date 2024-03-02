@@ -3,7 +3,7 @@ import java.util.Arrays;
 public class Department {
 
     private String name;
-    private Professor[] professors = new Professor[0];
+    private Person[] depStaff = new Person[0];
 
     public Department(String name) {
         this.name = name;
@@ -17,24 +17,24 @@ public class Department {
         this.name = name;
     }
 
-    public Professor[] getStaff() {
-        return professors;
+    public Person[] getStaff() {
+        return depStaff;
     }
     public void addProfessor(Professor professor) {
-        professors = Arrays.copyOf(professors, professors.length+1);
-        professors[professors.length-1]=professor;
+        depStaff = Arrays.copyOf(depStaff, depStaff.length+1);
+        depStaff[depStaff.length-1]=professor;
     }
 
     public void removeProfessor(Professor professor) {
         //todo
     }
 
-    public Professor findProfessor(String name) {
-        for (Professor pro : professors) {
-            if (pro.getName().equals(name)) {
-                return pro;
-            }
-        }
-        return null;
-    }
+//    public Professor findProfessor(String name) {
+//        for (Person pro : depStaff) {
+//            if (pro.getName().equals(name)) {
+//                return pro;
+//            }
+//        }
+//        return null;
+//    }
 }

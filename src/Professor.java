@@ -1,9 +1,7 @@
 public class Professor extends Person {
-    Department department;
-    Faculty faculty;
 
     public Faculty getFaculty() { return faculty; }
-    public Department getDepartment() { return department; }
+
 
     /** Professor constructor
      * @param faculty

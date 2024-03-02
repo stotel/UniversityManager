@@ -1,10 +1,8 @@
 public class Student extends Person {
     int course;
     int group;
-    Faculty faculty;
 
     public int getCourse() { return course; }
-    public Faculty getFaculty() { return faculty; }
     public int getGroup() { return group; }
 
     /** Student constructor
@@ -14,10 +12,11 @@ public class Student extends Person {
      * @param surname
      * @param name
      */
-    public Student(int course, Faculty faculty, int group, String surname, String name) {
+    public Student(int course, Faculty faculty, Department department, int group, String surname, String name) {
         super(name, surname);
         this.course = course;
         this.faculty = faculty;
+        this.department = department;
         this.group = group;
     }
 

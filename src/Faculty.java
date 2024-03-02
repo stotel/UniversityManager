@@ -3,13 +3,11 @@ import java.util.Arrays;
 public class Faculty {
 
     private String name;
-    private Department[] departments;
-    private Student[] students;
+    private Department[] departments = new Department[0];
+    private Student[] students = new Student[0];
 
     public Faculty(String name) {
         this.name = name;
-        this.departments = new Department[0];
-        this.students = new Student[0];
     }
 
     public String getName() {
@@ -29,7 +27,7 @@ public class Faculty {
         departments = Arrays.copyOf(departments,departments.length+1);
         departments[departments.length-1]=department;
     }
-    public void addDepartment(Student student) {
+    public void addStudent(Student student) {
         students = Arrays.copyOf(students,students.length+1);
         students[students.length-1]=student;
     }

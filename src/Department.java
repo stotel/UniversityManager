@@ -3,11 +3,10 @@ import java.util.Arrays;
 public class Department {
 
     private String name;
-    private Professor[] professors;
+    private Professor[] professors = new Professor[0];
 
     public Department(String name) {
         this.name = name;
-        this.professors = new Professor[0];
     }
 
     public String getName() {

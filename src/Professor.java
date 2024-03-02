@@ -1,27 +1,24 @@
-public class Professor extends People {
+public class Professor extends Person {
+    Department department;
+    Faculty faculty;
 
-    public Professor(String faculty, String department, String surname, String name, String patronymic) {
-        super(faculty, department, surname, name, patronymic);
+    public Faculty getFaculty() { return faculty; }
+    public Department getDepartment() { return department; }
+
+    /** Professor constructor
+     * @param faculty
+     * @param department
+     * @param surname
+     * @param name
+     */
+    public Professor(Faculty faculty, Department department, String surname, String name) {
+        super(name, surname);
+        this.faculty = faculty;
+        this.department = department;
     }
 
-
-    public String getFaculty() {
-        return faculty;
-    }
-    public String getDepartment() {
-        return department;
-    }
-    public String getSurname() {
-        return surname;
-    }
-    public String getName() {
-        return name;
-    }
-    public String getPatronymic() {
-        return patronymic;
-    }
     @Override
     public String toString() {
-        return "Викладач " + surname + " " + name + " " + patronymic + " - факультет " + faculty + " ; кафедра " + department;
+        return "Викладач " + surname + " " + name + " - факультет " + faculty + " ; кафедра " + department;
     }
 }

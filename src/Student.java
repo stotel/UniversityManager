@@ -1,31 +1,28 @@
-public class Student extends People {
+public class Student extends Person {
+    int course;
+    int group;
+    Faculty faculty;
 
-    public Student(int course, String faculty, String department, int group, String surname, String name, String patronymic) {
-        super(course, faculty, department, group, surname, name, patronymic);
-    }
+    public int getCourse() { return course; }
+    public Faculty getFaculty() { return faculty; }
+    public int getGroup() { return group; }
 
-
-    public int getCourse() {
-        return course;
-    }
-    public String getFaculty() {
-        return faculty;
-    }
-    public int getGroup() {
-        return group;
-    }
-    public String getSurname() {
-        return surname;
-    }
-    public String getName() {
-        return name;
-    }
-    public String getPatronymic() {
-        return patronymic;
+    /** Student constructor
+     * @param course
+     * @param faculty
+     * @param group
+     * @param surname
+     * @param name
+     */
+    public Student(int course, Faculty faculty, int group, String surname, String name) {
+        super(name, surname);
+        this.course = course;
+        this.faculty = faculty;
+        this.group = group;
     }
 
     @Override
     public String toString() {
-        return "Студент " + surname + " " + name + " " + patronymic + " - курс: " + course + " ; факультет " + faculty + " ; кафедра " + department + " ; група: " + group;
+        return "Студент " + surname + " " + name + " - курс: " + course + " ; факультет " + faculty + " ; група: " + group;
     }
 }

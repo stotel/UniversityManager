@@ -1,13 +1,31 @@
-public class Student extends Person {
+public class Student extends People {
 
-    private int year;
-
-    public Student(String name, int year) {
-        super(name); // Call parent constructor (Person)
-        this.year = year;
+    public Student(int course, String faculty, String department, int group, String surname, String name, String patronymic) {
+        super(course, faculty, department, group, surname, name, patronymic);
     }
 
-    public int getYear() {
-        return year;
+
+    public int getCourse() {
+        return course;
+    }
+    public String getFaculty() {
+        return faculty;
+    }
+    public int getGroup() {
+        return group;
+    }
+    public String getSurname() {
+        return surname;
+    }
+    public String getName() {
+        return name;
+    }
+    public String getPatronymic() {
+        return patronymic;
+    }
+
+    @Override
+    public String toString() {
+        return "Студент " + surname + " " + name + " " + patronymic + " - курс: " + course + " ; факультет " + faculty + " ; кафедра " + department + " ; група: " + group;
     }
 }

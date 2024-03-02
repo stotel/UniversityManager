@@ -1,7 +1,9 @@
+import java.io.IOException;
+
 public class Main {
 
-    public static void main(String[] args) {
-        NaUKMA UNI = new NaUKMA();
+    public static void main(String[] args) throws IOException {
+        NaUKMA uni = new NaUKMA();
         while (true) {
             System.out.println("Оберіть дію:");
             System.out.println("1. Створити/видалити/редагувати факультет");
@@ -23,10 +25,10 @@ public class Main {
                     System.out.println("3. Редагувати");
                     switch (DataInput.getInt("your option:",1,3)) {
                         case 1:
-                            // Створити факультет
+                            uni.addFaculty(new Faculty(DataInput.getString("Назва: ")));
                             break;
                         case 2:
-                            // Видалити факультет
+                            uni.removeFaculty(DataInput.getString("Назва: "));
                             break;
                         case 3:
                             // Редагувати факультет

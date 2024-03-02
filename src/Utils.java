@@ -1,6 +1,23 @@
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Random;
 public class Utils {
+    public static void remove(Object o, Object[] obs){
+        int entryIndex = findFirst(o, obs);
+        if(entryIndex >= 0) {
+            obs[entryIndex] = obs[obs.length - 1];
+            obs = Arrays.copyOf(obs, obs.length - 1);
+        }
+    }
+    public static int findFirst(Object o, Object[] obs){
+        for (int i = 0; i< obs.length; i++){
+            Object a = obs[i];
+            if (a.equals(o))
+                return i;
+        }
+        return -1;
+    }
+    /////
     public static String intArrayToString(int[] arr){
         if(arr.length == 0){
             return("");

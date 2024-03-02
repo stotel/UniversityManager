@@ -1,14 +1,14 @@
 public class Person {
-    String name;
-    String surname;
+    private String name;
+    private String sname;
 
-    public Person(String name, String surname) {
+    public Person(String name, String sname) {
         this.name = name;
-        this.surname = surname;
+        this.sname = sname;
     }
     public String getName() {
         return name;
     }
-    public String getSurname() { return surname; }
+    public String getSurname() { return sname; }
 }
 

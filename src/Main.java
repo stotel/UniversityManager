@@ -54,6 +54,7 @@ public class Main {
                     // Додати/видалити/редагувати студента/викладача до кафедри
                     break;
                 case 4:
+                    Person.findPersonByCourse(4);
                     // Знайти студента/викладача за ПІБ, курсом або групою
                     break;
                 case 5:

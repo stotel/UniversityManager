@@ -3,8 +3,8 @@ import java.util.Arrays;
 public class Faculty {
 
     private String name;
-    private Department[] departments = new Department[0];
-    private Student[] students = new Student[0];
+    private static Department[] departments = new Department[0];
+    public static Student[] students = new Student[0];
 
     public Faculty(String name) {
         this.name = name;
@@ -36,6 +36,10 @@ public class Faculty {
         //todo
     }
     public void removeStudent(Department student) {
+        //todo
+    }
+
+    public void changeDepartment(Department department) {
         //todo
     }
 

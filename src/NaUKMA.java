@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class NaUKMA {
 
-    private Faculty[] faculties = new Faculty[0];
+    private static Faculty[] faculties = new Faculty[0];
     private Department[] departments;
 
     {
@@ -43,7 +43,7 @@ public class NaUKMA {
         return departments;
     }
 
-    public void addFaculty(Faculty faculty) {
+    public static void addFaculty(Faculty faculty) {
         faculties = Arrays.copyOf(faculties, faculties.length + 1);
         faculties[faculties.length - 1] = faculty;
     }
@@ -56,25 +56,53 @@ public class NaUKMA {
             System.out.println("Факультету не знайдено - кафедру не додано...");
     }
 
-    public void addStudent(Student student, String facName) {
-        findFaculty(facName).addStudent(student);
+    public void addStudentToFac(Student student, String facName) {
+        Faculty f = findFaculty(facName);
+        if (f != null) {
+            f.addStudent(student);
+        } else {
+            System.out.println("Такого факультету не існує");
+        }
     }
 
-    public void addProfessor(Professor professor, String depName) {
+    public void addStudentToDep(Student student, String depName) {
+        for (Faculty f : faculties) {
+            Department dep = f.findDepartment(depName);
+            if (dep != null) {
+                dep.addStudent(student);
+                return;
+            } else {
+                System.out.println("Такої кафедри не існує");
+            }
+        }
+    }
+
+    public void addProfessorToFac(Professor professor, String facName) {
+        Faculty f = findFaculty(facName);
+        if (f != null) {
+            f.addProfessor(professor);
+        } else {
+            System.out.println("Такого факультету не існує");
+        }
+    }
+
+    public void addProfessorToDep(Professor professor, String depName) {
         for (Faculty f : faculties) {
             Department dep = f.findDepartment(depName);
             if (dep != null) {
                 dep.addProfessor(professor);
                 return;
+            } else {
+                System.out.println("Такої кафедри не існує");
             }
         }
     }
 
-    public void removeFaculty(String name) {
+    public static void removeFaculty(String name) {
         Faculty f = getFaculty(name);
-        if (f != null)
+        if (f != null) {
             Utils.remove(f, faculties);
-        else {
+        } else {
             System.out.println("Такого факультету не існує");
         }
     }
@@ -88,25 +116,31 @@ public class NaUKMA {
 
     public void removeStudent(String name, String sname) {
         Student s = getStudent(name, sname);
-        if (s != null)
+        if (s != null) {
             s.getFaculty().removeStudent(s);
+            s.getDepartment().removeStudent(s);
+        }
     }
 
     public void removeProfessor(String name, String sname) {
         Professor p = getProfessor(name, sname);
-        if (p != null)
+        if (p != null) {
+            p.getFaculty().removeProfessor(p);
             p.getDepartment().removeProfessor(p);
+        }
     }
 
-    public void changeFaculty(Faculty faculty, String newName) {
-        if (findFaculty(faculty.getName()) == null) {
+    public static void changeFaculty(Faculty faculty, String newName) {
+        if (faculty != null && findFaculty(newName) == null) {
             faculty.setName(newName);
+        } else if (faculty == null) {
+            System.out.println("Такого факультету не існує");
         } else {
             System.out.println("Факультет з такою назвою вже існує");
         }
     }
 
-    public void facultyActions() throws IOException {
+    public static void facultyActions() throws IOException {
         int choice = DataInput.getInt("Оберіть дію з факультетом: \n1. Створити \n2. Видалити \n3. Редагувати \n");
         switch (choice) {
             case 1:
@@ -118,14 +152,14 @@ public class NaUKMA {
             case 3:
                 String oldName = DataInput.getString("Введіть стару назву факультету: ");
                 String newName = DataInput.getString("Введіть нову назву факультету: ");
-                Faculty faculty = findFaculty(oldName);
-                if (faculty != null) {
-                    changeFaculty(faculty, newName);
-                }
+                changeFaculty(findFaculty(oldName), newName);
+                break;
+            default:
+                facultyActions();
         }
     }
 
-    public Faculty getFaculty(String name) {
+    public static Faculty getFaculty(String name) {
         return findFaculty(name);
     }
 
@@ -172,7 +206,7 @@ public class NaUKMA {
         return null;
     }
 
-    public Faculty findFaculty(String name) {
+    public static Faculty findFaculty(String name) {
         for (Faculty faculty : faculties) {
             if (faculty.getName().equals(name)) {
                 return faculty;

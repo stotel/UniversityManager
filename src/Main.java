@@ -19,37 +19,12 @@ public class Main {
             System.out.println("0. Вихід");
             switch (DataInput.getInt("your option:")) {
                 case 1:
-                    System.out.println("Виберіть дію з факультетом:");
-                    System.out.println("1. Створити");
-                    System.out.println("2. Видалити");
-                    System.out.println("3. Редагувати");
-                    switch (DataInput.getInt("your option:",1,3)) {
-                        case 1:
-                            uni.addFaculty(new Faculty(DataInput.getString("Назва: ")));
-                            break;
-                        case 2:
-                            uni.removeFaculty(DataInput.getString("Назва: "));
-                            break;
-                        case 3:
-                            // Редагувати факультет
-                            break;
-                    }
+                    NaUKMA.facultyActions();
                     break;
                 case 2:
-                    System.out.println("Виберіть дію з кафедрою:");
-                    System.out.println("1. Створити");
-                    System.out.println("2. Видалити");
-                    System.out.println("3. Редагувати");
-                    switch (DataInput.getInt("your option:",1,3)) {
-                        case 1:
-                            // Створити кафедру
-                            break;
-                        case 2:
-                            // Видалити кафедру
-                            break;
-                        case 3:
-                            // Редагувати кафедру
-                            break;
+                    Faculty faculty = NaUKMA.findFaculty(DataInput.getString("Введіть назву факультета, в середині якого працюватемо: "));
+                    if (faculty != null) {
+                        faculty.departmentActions();
                     }
                     break;
                 case 3:

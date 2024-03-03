@@ -15,5 +15,11 @@ public class Person {
     public Faculty getFaculty() { return faculty; }
     public Department getDepartment() { return department; }
     public String getSurname() { return sname; }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setSurname(String sname) {
+        this.sname = sname;
+    }
 }
 

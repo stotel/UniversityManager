@@ -1,4 +1,6 @@
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Objects;
 
 public class Department {
@@ -39,12 +41,14 @@ public class Department {
         professors = Arrays.copyOf(professors, professors.length + 1);
         professors[professors.length - 1] = professor;
         professor.setDepartment(this);
+        faculty.addProfessor(professor);
     }
 
     public void addStudent(Student student) {
         students = Arrays.copyOf(students, students.length + 1);
         students[students.length - 1] = student;
         student.setDepartment(this);
+        faculty.addStudent(student);
     }
 
     public void removeProfessor(String name, String sname) {
@@ -55,13 +59,103 @@ public class Department {
         if (p != null) {
             Utils.remove(p, professors);
             p.setDepartment(null);
+        } else {
+            System.out.println("Такого викладача не існує");
         }
+    }
+
+    public void removeStudent(String name, String sname) {
+        removeStudent(findStudent(name, sname));
+    }
+
+    public void removeStudent(Student s) {
+        if (s != null) {
+            Utils.remove(s, students);
+            s.setDepartment(null);
+        } else {
+            System.out.println("Такого студента не існує");
+        }
+    }
+
+    public void changeProfessor(String name, String sname) throws IOException {
+        changeProfessor(findProfessor(name, sname));
+    }
+
+    public void changeProfessor(Professor prf) throws IOException {
+        if (prf != null) {
+            prf.setName(DataInput.getString("Введіть нове ім'я викладача: "));
+            prf.setSurname(DataInput.getString("Введіть нове прізвище викладача: "));
+        } else {
+            System.out.println("Такого викладача не існує");
+        }
+    }
+
+    public void changeStudent(String name, String sname) throws IOException {
+        changeStudent(findStudent(name, sname));
+    }
+
+    public void changeStudent(Student std) throws IOException {
+        if (std != null) {
+            std.setName(DataInput.getString("Введіть нове ім'я студента: "));
+            std.setSurname(DataInput.getString("Введіть нове прізвище студента: "));
+        } else {
+            System.out.println("Такого студента не існує");
+        }
+    }
+
+    public void staffActions() throws IOException {
+        int action;
+        int choice = DataInput.getInt("Оберіть, із ким працювати: \n1. Викладач \n2. Студент\n");
+        switch (choice) {
+            case 1:
+                action = DataInput.getInt("Оберіть дію з людиною на кафедрі: \n1. Додати \n2. Видалити \n3. Редагувати \n");
+                switch (action) {
+                    case 1:
+                        Professor newProf = new Professor(DataInput.getString("Введіть прізвище"), DataInput.getString("Введіть ім'я"));
+                        addProfessor(newProf);
+                        break;
+                    case 2:
+                        removeProfessor(DataInput.getString("Введіть ім'я викладача: "), DataInput.getString("Введіть прізвище викладача: "));
+                        break;
+                    case  3:
+                      changeProfessor(DataInput.getString("Введіть ім'я викладача: "), DataInput.getString("Введіть прізвище викладача: "));
+                      break;
+                }
+                break;
+            case 2:
+                action = DataInput.getInt("Оберіть дію з людиною на кафедрі: \n1. Додати \n2. Видалити \n3. Редагувати \n");
+                switch (action) {
+                    case 1:
+                        Student newStud = new Student(DataInput.getInt("Введіть курс студента: "), DataInput.getInt("Введіть групу студента: "), DataInput.getString("Введіть прізвище студента"), DataInput.getString("Введіть ім'я студента"));
+                        addStudent(newStud);
+                        break;
+                    case 2:
+                        removeStudent(DataInput.getString("Введіть ім'я студента: "), DataInput.getString("Введіть прізвище студента: "));
+                        break;
+                    case  3:
+                        changeStudent(DataInput.getString("Введіть ім'я студента: "), DataInput.getString("Введіть прізвище студента: "));
+                        break;
+                }
+                break;
+            default:
+                staffActions();
+        }
+
     }
 
     public Professor findProfessor(String name, String sname) {
         for (Professor p : professors) {
             if (p.getName().equals(name) && p.getSurname().equals(sname)) {
                 return p;
+            }
+        }
+        return null;
+    }
+
+    public Student findStudent(String name, String sname) {
+        for (Student s : students) {
+            if (s.getName().equals(name) && s.getSurname().equals(sname)) {
+                return s;
             }
         }
         return null;

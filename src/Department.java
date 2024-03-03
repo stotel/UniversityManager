@@ -8,6 +8,10 @@ public class Department {
     private Professor[] professors = new Professor[0];
     private Student[] students = new Student[0];
 
+    public void setStudents(Student[] students) {
+        this.students = students;
+    }
+
     public Department(String name) {
         this.name = name;
     }
@@ -40,14 +44,14 @@ public class Department {
         professors = Arrays.copyOf(professors, professors.length + 1);
         professors[professors.length - 1] = professor;
         professor.setDepartment(this);
-        faculty.addProfessor(professor);
+        //faculty.addProfessor(professor);
     }
 
     public void addStudent(Student student) {
         students = Arrays.copyOf(students, students.length + 1);
         students[students.length - 1] = student;
         student.setDepartment(this);
-        faculty.addStudent(student);
+        //faculty.addStudent(student);
     }
 
     public void removeProfessor(String name, String sname) {

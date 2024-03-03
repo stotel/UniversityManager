@@ -5,8 +5,8 @@ import java.util.Objects;
 public class Faculty {
     private String name;
     private Department[] departments = new Department[0];
-    private Student[] students = new Student[0];
-    private Professor[] professors = new Professor[0];
+    //private Student[] students = new Student[0];
+    //private Professor[] professors = new Professor[0];
 
     public Faculty(String name) {
         this.name = name;
@@ -31,16 +31,25 @@ public class Faculty {
         department.setFaculty(this);
     }
 
-    public void addStudent(Student student) {
-        students = Arrays.copyOf(students, students.length + 1);
-        students[students.length - 1] = student;
-        student.setFaculty(this);
+    public void addStudent(Student student,String department) {
+        //students = Arrays.copyOf(students, students.length + 1);
+        //students[students.length - 1] = student;
+        //student.setFaculty(this);
+        Department d = findDepartment(department);
+        if(d!=null){
+            d.addStudent(student);
+        }else{
+            System.out.println("невірне ім'я кафедри");
+        }
     }
 
-    public void addProfessor(Professor professor) {
-        professors = Arrays.copyOf(professors, professors.length + 1);
-        professors[professors.length - 1] = professor;
-        professor.setFaculty(this);
+    public void addProfessor(Professor professor,String department) {
+        Department d = findDepartment(department);
+        if(d!=null){
+            d.addProfessor(professor);
+        }else{
+            System.out.println("невірне ім'я кафедри");
+        }
     }
 
     public void removeDepartment(String depName) {
@@ -56,25 +65,29 @@ public class Faculty {
         }
     }
 
-    public void removeStudent(String name, String sname) {
-        removeStudent(findStudent(name, sname));
+    public void removeStudent(String name, String sname,String dep) {
+        removeStudent(findStudent(name, sname),dep);
     }
 
-    public void removeStudent(Student student) {
-        if (student != null) {
-            Utils.remove(student, students);
-            student.setFaculty(null);
+    public void removeStudent(Student student,String department) {
+        Department d = findDepartment(department);
+        if(d!=null){
+            d.removeStudent(student);
+        }else{
+            System.out.println("невірне ім'я кафедри");
         }
     }
 
-    public void removeProfessor(String name, String sname) {
-        removeProfessor(findProfessor(name, sname));
+    public void removeProfessor(String name, String sname,String dep) {
+        removeProfessor(findProfessor(name, sname),dep);
     }
 
-    public void removeProfessor(Professor professor) {
-        if (professor != null) {
-            Utils.remove(professor, professors);
-            professor.setFaculty(null);
+    public void removeProfessor(Professor professor,String department) {
+        Department d = findDepartment(department);
+        if(d!=null){
+            d.removeProfessor(professor);
+        }else{
+            System.out.println("невірне ім'я кафедри");
         }
     }
 
@@ -117,18 +130,22 @@ public class Faculty {
     }
 
     public Student findStudent(String name, String sname) {
-        for (Student s : students) {
-            if (s.getName().equals(name) && s.getSurname().equals(sname)) {
-                return s;
+        for(Department d:departments){
+            for (Student s : d.getStudents()) {
+                if (s.getName().equals(name) && s.getSurname().equals(sname)) {
+                    return s;
+                }
             }
         }
         return null;
     }
 
     public Professor findProfessor(String name, String sname) {
-        for (Professor p : professors) {
-            if (p.getName().equals(name) && p.getSurname().equals(sname)) {
-                return p;
+        for(Department d:departments){
+            for (Professor s : d.getProfessors()) {
+                if (s.getName().equals(name) && s.getSurname().equals(sname)) {
+                    return s;
+                }
             }
         }
         return null;
@@ -139,7 +156,7 @@ public class Faculty {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Faculty faculty = (Faculty) o;
-        return Objects.equals(name, faculty.name) && Arrays.equals(departments, faculty.departments) && Arrays.equals(students, faculty.students);
+        return Objects.equals(name, faculty.name) && Arrays.equals(departments, faculty.departments);
     }
 
     //equals helper
@@ -147,7 +164,7 @@ public class Faculty {
     public int hashCode() {
         int result = Objects.hash(name);
         result = 31 * result + Arrays.hashCode(departments);
-        result = 31 * result + Arrays.hashCode(students);
+        //result = 31 * result + Arrays.hashCode(students);
         return result;
     }
 }

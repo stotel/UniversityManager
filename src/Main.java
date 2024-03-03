@@ -4,6 +4,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         NaUKMA uni = new NaUKMA();
+        Student[] allStudents;
         while (true) {
             System.out.println("Оберіть дію:");
             System.out.println("1. Створити/видалити/редагувати факультет");
@@ -35,9 +36,20 @@ public class Main {
                     break;
                 case 5:
                     // Вивести всіх студентів впорядкованих за курсами
+                    allStudents = findAllStudents();
+                    sortStudentsByCourse(allStudents);
+                    for(Student s:allStudents){
+                        System.out.println(s);
+                    }
                     break;
                 case 6:
                     // Вивести всіх студентів/викладачів факультета впорядкованих за алфавітом
+                    System.out.println("Студенти:");
+                    allStudents = findAllStudents();
+                    sortStudentsByName(allStudents);
+                    for(Student s:allStudents){
+                        System.out.println(s);
+                    }
                     break;
                 case 7:
                     // Вивести всіх студентів кафедри впорядкованих за курсами
@@ -58,6 +70,39 @@ public class Main {
                     System.out.println("incorrect variant!");
                     break;
             }
+        }
+    }
+    public static Student[] findAllStudents(){
+        Student[] s = new Student[0];
+        for(Faculty f: NaUKMA.getFaculties()){
+            for(Department d:f.getDepartments()){
+                Utils.append(s,d.getStudents());
+            }
+        }
+        return s;
+    }
+    public static void sortStudentsByCourse(Student[] arr){
+        int n = arr.length;
+        for (int i = 1; i < n; ++i) {
+            Student key = arr[i];
+            int j = i - 1;
+            while (j >= 0 && arr[j].getCourse() > key.getCourse()) {
+                arr[j + 1] = arr[j];
+                j = j - 1;
+            }
+            arr[j + 1] = key;
+        }
+    }
+    public static void sortStudentsByName(Student[] arr){
+        int n = arr.length;
+        for (int i = 1; i < n; ++i) {
+            Student key = arr[i];
+            int j = i - 1;
+            while (j >= 0 && (arr[j].getName()+arr[j].getSurname()).compareTo(key.getName()+key.getSurname()) > 0) {
+                arr[j + 1] = arr[j];
+                j = j - 1;
+            }
+            arr[j + 1] = key;
         }
     }
 }

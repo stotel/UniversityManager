@@ -5,7 +5,7 @@ import java.util.Objects;
 public class NaUKMA {
 
     private static Faculty[] faculties = new Faculty[0];
-    private Department[] departments;
+    //private Department[] departments;
 
     {
         addFaculty(new Faculty("ФІ"));
@@ -16,10 +16,10 @@ public class NaUKMA {
         Student stdInit3 = new Student(1, 5, "Рублевський", "Орест");
 
         faculties[0].addDepartment(depInit);
-        faculties[0].addProfessor(prfInit);
-        faculties[0].addStudent(stdInit1);
-        faculties[0].addStudent(stdInit2);
-        faculties[0].addStudent(stdInit3);
+        faculties[0].addProfessor(prfInit,"Кафедра інформатики");
+        faculties[0].addStudent(stdInit1,"Кафедра інформатики");
+        faculties[0].addStudent(stdInit2,"Кафедра інформатики");
+        faculties[0].addStudent(stdInit3,"Кафедра інформатики");
 
         depInit.addProfessor(prfInit);
         depInit.addStudent(stdInit1);
@@ -27,11 +27,11 @@ public class NaUKMA {
         depInit.addStudent(stdInit3);
     }
 
-    public Faculty[] getFaculties() {
+    public static Faculty[] getFaculties() {
         return faculties;
     }
 
-    public Department[] getDepartments() {
+    /*public Department[] getDepartments() {
         int len = 0;
         Department[] deps = new Department[len];
         for (Faculty f : faculties) {
@@ -41,7 +41,7 @@ public class NaUKMA {
         }
         departments = deps;
         return departments;
-    }
+    }*/
 
     public static void addFaculty(Faculty faculty) {
         faculties = Arrays.copyOf(faculties, faculties.length + 1);
@@ -56,16 +56,16 @@ public class NaUKMA {
             System.out.println("Факультету не знайдено - кафедру не додано...");
     }
 
-    public void addStudentToFac(Student student, String facName) {
+    public void addStudent(Student student, String facName,String depName) {
         Faculty f = findFaculty(facName);
         if (f != null) {
-            f.addStudent(student);
+            f.addStudent(student,depName);
         } else {
             System.out.println("Такого факультету не існує");
         }
     }
 
-    public void addStudentToDep(Student student, String depName) {
+    /*public void addStudentToDep(Student student, String depName) {
         for (Faculty f : faculties) {
             Department dep = f.findDepartment(depName);
             if (dep != null) {
@@ -75,18 +75,18 @@ public class NaUKMA {
                 System.out.println("Такої кафедри не існує");
             }
         }
-    }
+    }*/
 
-    public void addProfessorToFac(Professor professor, String facName) {
+    public void addProfessor(Professor professor, String facName,String depName) {
         Faculty f = findFaculty(facName);
         if (f != null) {
-            f.addProfessor(professor);
+            f.addProfessor(professor,depName);
         } else {
             System.out.println("Такого факультету не існує");
         }
     }
 
-    public void addProfessorToDep(Professor professor, String depName) {
+    /*public void addProfessorToDep(Professor professor, String depName) {
         for (Faculty f : faculties) {
             Department dep = f.findDepartment(depName);
             if (dep != null) {
@@ -96,7 +96,7 @@ public class NaUKMA {
                 System.out.println("Такої кафедри не існує");
             }
         }
-    }
+    }*/
 
     public static void removeFaculty(String name) {
         Faculty f = getFaculty(name);
@@ -117,16 +117,16 @@ public class NaUKMA {
     public void removeStudent(String name, String sname) {
         Student s = getStudent(name, sname);
         if (s != null) {
-            s.getFaculty().removeStudent(s);
-            s.getDepartment().removeStudent(s);
+            s.getFaculty().removeStudent(s,s.getDepartment().getName());
+            //s.getDepartment().removeStudent(s);
         }
     }
 
     public void removeProfessor(String name, String sname) {
         Professor p = getProfessor(name, sname);
         if (p != null) {
-            p.getFaculty().removeProfessor(p);
-            p.getDepartment().removeProfessor(p);
+            p.getFaculty().removeProfessor(p,p.getDepartment().getName());
+            //p.getDepartment().removeProfessor(p);
         }
     }
 

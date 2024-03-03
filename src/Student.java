@@ -4,6 +4,15 @@ public class Student extends Person {
     private int course;
     private int group;
     private Faculty faculty;
+    private Department department;
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
 
     public int getCourse() { return course; }
     public Faculty getFaculty() { return faculty; }

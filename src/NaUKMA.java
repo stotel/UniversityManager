@@ -29,8 +29,8 @@ public class NaUKMA {
         else
             System.out.println("No faculty found, department was not added...");
     }
-    public void addStudent(Student student, String facName){
-        findFaculty(facName).addStudent(student);
+    public void addStudent(Student student, String facName, String depName){
+        findFaculty(facName).findDepartment(depName).addStudent(student);
     }
     public void addProfessor(Professor professor, String depName){
         for(Faculty f: faculties) {
@@ -55,7 +55,7 @@ public class NaUKMA {
     public void removeStudent(String name, String sname){
         Student s = getStudent(name, sname);
         if(s != null)
-            s.getFaculty().removeStudent(s);
+            s.getDepartment().removeStudent(s);
     }
     public void removeProfessor(String name, String sname){
         Professor p = getProfessor(name, sname);
@@ -77,9 +77,11 @@ public class NaUKMA {
 
     public Student getStudent(String name, String sname){
         for(Faculty f: faculties) {
-            Student s = f.findStudent(name, sname);
-            if (s != null) {
-                return s;
+            for(Department d: getDepartments()){
+                Student s = d.findStudent(name, sname);
+                if (s != null) {
+                    return s;
+                }
             }
         }
         return null;

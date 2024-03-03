@@ -4,7 +4,6 @@ import java.util.Objects;
 public class Faculty {
     private String name;
     private Department[] departments = new Department[0];
-    private Student[] students = new Student[0];
 
     public Faculty(String name) {
         this.name = name;
@@ -28,12 +27,6 @@ public class Faculty {
         departments[departments.length-1]=department;
         department.setFaculty(this);
     }
-    public void addStudent(Student student) {
-        students = Arrays.copyOf(students,students.length+1);
-        students[students.length-1]=student;
-        student.setFaculty(this);
-    }
-
     public void removeDepartment(String depName) {
         removeDepartment(findDepartment(depName));
     }
@@ -43,29 +36,12 @@ public class Faculty {
             dep.setFaculty(null);
         }
     }
-    public void removeStudent(String name, String sname) {
-        removeStudent(findStudent(name, sname));
-    }
-    public void removeStudent(Student student) {
-        if(student != null) {
-            Utils.remove(student, students);
-            student.setFaculty(null);
-        }
-    }
+
 
     public Department findDepartment(String name) {
         for (Department d : departments) {
             if (d.getName().equals(name)) {
                 return d;
-            }
-        }
-        return null;
-    }
-
-    public Student findStudent(String name, String sname) {
-        for (Student s : students) {
-            if (s.getName().equals(name) && s.getSurname().equals(sname)) {
-                return s;
             }
         }
         return null;
@@ -83,7 +59,7 @@ public class Faculty {
     public int hashCode() {
         int result = Objects.hash(name);
         result = 31 * result + Arrays.hashCode(departments);
-        result = 31 * result + Arrays.hashCode(students);
+        //result = 31 * result + Arrays.hashCode(students);
         return result;
     }
 }

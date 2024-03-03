@@ -3,6 +3,7 @@ import java.util.Objects;
 public class Professor extends Person {
 
     public void setFaculty(Faculty f){ faculty = f;}
+
     public void setDepartment(Department d){ department = d;}
 
     /** Professor constructor

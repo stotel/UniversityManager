@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Objects;
 
 public class Department {
@@ -17,12 +16,12 @@ public class Department {
         return name;
     }
 
-    public Faculty getFaculty() {
-        return faculty;
+    public void setFaculty(Faculty f){
+        faculty = f;
     }
 
-    public void setFaculty(Faculty f) {
-        this.faculty = f;
+    public Faculty getFaculty() {
+        return faculty;
     }
 
     public void setName(String name) {

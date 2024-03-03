@@ -183,10 +183,10 @@ public class NaUKMA {
         return null;
     }
 
-    //todo
     public Student getStudent(int group, boolean courseInstead) {
         for (Faculty f : faculties) {
             Student s = (courseInstead) ? null : null;
+
             if (s != null) {
                 return s;
             }
@@ -205,6 +205,7 @@ public class NaUKMA {
         }
         return null;
     }
+
 
     public static Faculty findFaculty(String name) {
         for (Faculty faculty : faculties) {

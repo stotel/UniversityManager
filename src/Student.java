@@ -4,7 +4,6 @@ public class Student extends Person {
     private int course;
     private int group;
 
-
     public int getCourse() { return course; }
     public int getGroup() { return group; }
     public void setFaculty(Faculty f){ faculty = f; }
@@ -18,7 +17,6 @@ public class Student extends Person {
      * @param surname
      * @param name
      */
-
     public Student(int course, int group, String surname, String name) {
         super(name, surname);
         this.course = course;

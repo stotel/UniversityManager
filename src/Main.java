@@ -1,3 +1,5 @@
+import Utils.*;
+
 import java.io.IOException;
 
 public class Main {
@@ -31,10 +33,13 @@ public class Main {
                     }
                     break;
                 case 3:
-                    // Додати/видалити/редагувати студента/викладача до кафедри
+                    Department department = NaUKMA.findDepartment(DataInput.getString("Введіть назву кафедри, в середині якої працюватемо: "));
+                    if (department != null) {
+                        department.staffActions();
+                    }
                     break;
                 case 4:
-                    // Знайти студента/викладача за ПІБ, курсом або групою
+                    NaUKMA.findPerson();
                     break;
                 case 5:
                     // Вивести всіх студентів впорядкованих за курсами

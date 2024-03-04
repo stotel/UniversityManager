@@ -1,3 +1,5 @@
+import Utils.*;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Objects;
@@ -20,7 +22,7 @@ public class Department {
         return name;
     }
 
-    public void setFaculty(Faculty f){
+    public void setFaculty(Faculty f) {
         faculty = f;
     }
 
@@ -51,6 +53,7 @@ public class Department {
         students = Arrays.copyOf(students, students.length + 1);
         students[students.length - 1] = student;
         student.setDepartment(this);
+        student.setFaculty(getFaculty());
         //faculty.addStudent(student);
     }
 
@@ -86,8 +89,7 @@ public class Department {
 
     public void changeProfessor(Professor prf) throws IOException {
         if (prf != null) {
-            prf.setName(DataInput.getString("Введіть нове ім'я викладача: "));
-            prf.setSurname(DataInput.getString("Введіть нове прізвище викладача: "));
+            choiceOfChanges(prf);
         } else {
             System.out.println("Такого викладача не існує");
         }
@@ -99,10 +101,55 @@ public class Department {
 
     public void changeStudent(Student std) throws IOException {
         if (std != null) {
-            std.setName(DataInput.getString("Введіть нове ім'я студента: "));
-            std.setSurname(DataInput.getString("Введіть нове прізвище студента: "));
+            choiceOfChanges(std);
         } else {
             System.out.println("Такого студента не існує");
+        }
+    }
+
+    private void choiceOfChanges(Person per) throws IOException {
+        int choice;
+
+        if (per instanceof Student) {
+            choice = DataInput.getInt("Оберіть, що ви хочете змінити: \n1.Ім'я і прізвище: \n2.Кафедру: \n3.Курс \n4.Групу");
+            switch (choice) {
+                case 3:
+                    ((Student) per).setCourse(DataInput.getInt("Введіть новий курс студента: "));
+                    break;
+                case 4:
+                    ((Student) per).setGroup(DataInput.getInt("Введіть нову групу студента: "));
+                default:
+            }
+        } else
+            choice = DataInput.getInt("Оберіть, що ви хочете змінити: \n1.Ім'я і прізвище: \n2.Кафедру: \n");
+
+        switch (choice) {
+            case 1:
+                String newName = DataInput.getString("Введіть нове ім'я: ");
+                String newSname = DataInput.getString("Введіть нове прізвище: ");
+                if (!personExists(newName, newSname)) {
+                    per.setName(newName);
+                    per.setSurname(newSname);
+                } else {
+                    System.out.println("Людина з таким іменем і прізвищем уже є");
+                }
+                break;
+            case 2:
+                Department newDep = getFaculty().findDepartment(DataInput.getString("Вкажіть, на яку кафедру перевести: "));
+                if (newDep != null) {
+                    if (per instanceof Student) {
+                        removeStudent((Student) per);
+                        newDep.addStudent((Student) per);
+                    } else {
+                        removeProfessor((Professor) per);
+                        newDep.addProfessor((Professor) per);
+                    }
+                } else {
+                    System.out.println("Такої кафедри не існує");
+                }
+                break;
+            default:
+                choiceOfChanges(per);
         }
     }
 
@@ -114,28 +161,38 @@ public class Department {
                 action = DataInput.getInt("Оберіть дію з людиною на кафедрі: \n1. Додати \n2. Видалити \n3. Редагувати \n");
                 switch (action) {
                     case 1:
-                        Professor newProf = new Professor(DataInput.getString("Введіть прізвище"), DataInput.getString("Введіть ім'я"));
-                        addProfessor(newProf);
+                        String name = DataInput.getString("Введіть нове ім'я: ");
+                        String sname = DataInput.getString("Введіть нове прізвище: ");
+                        if (!personExists(name, sname)) {
+                            addProfessor(new Professor(sname, name));
+                        } else {
+                            System.out.println("Людина з таким іменем і прізвищем уже є");
+                        }
                         break;
                     case 2:
                         removeProfessor(DataInput.getString("Введіть ім'я викладача: "), DataInput.getString("Введіть прізвище викладача: "));
                         break;
-                    case  3:
-                      changeProfessor(DataInput.getString("Введіть ім'я викладача: "), DataInput.getString("Введіть прізвище викладача: "));
-                      break;
+                    case 3:
+                        changeProfessor(DataInput.getString("Введіть ім'я викладача: "), DataInput.getString("Введіть прізвище викладача: "));
+                        break;
                 }
                 break;
             case 2:
                 action = DataInput.getInt("Оберіть дію з людиною на кафедрі: \n1. Додати \n2. Видалити \n3. Редагувати \n");
                 switch (action) {
                     case 1:
-                        Student newStud = new Student(DataInput.getInt("Введіть курс студента: "), DataInput.getInt("Введіть групу студента: "), DataInput.getString("Введіть прізвище студента"), DataInput.getString("Введіть ім'я студента"));
-                        addStudent(newStud);
+                        String name = DataInput.getString("Введіть нове ім'я: ");
+                        String sname = DataInput.getString("Введіть нове прізвище: ");
+                        if (!personExists(name, sname)) {
+                            addStudent(new Student(DataInput.getInt("Введіть курс студента: "), DataInput.getInt("Введіть групу студента: "), sname, name));
+                        } else {
+                            System.out.println("Людина з таким іменем і прізвищем уже є");
+                        }
                         break;
                     case 2:
                         removeStudent(DataInput.getString("Введіть ім'я студента: "), DataInput.getString("Введіть прізвище студента: "));
                         break;
-                    case  3:
+                    case 3:
                         changeStudent(DataInput.getString("Введіть ім'я студента: "), DataInput.getString("Введіть прізвище студента: "));
                         break;
                 }
@@ -144,6 +201,22 @@ public class Department {
                 staffActions();
         }
 
+    }
+
+    public boolean personExists(String name, String sname) {
+        Person per;
+        for (Faculty f : NaUKMA.getFaculties()) {
+            per = f.findStudent(name, sname);
+            if (per != null) {
+                return true;
+            }
+
+            per = f.findProfessor(name, sname);
+            if (per != null) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public Professor findProfessor(String name, String sname) {
@@ -164,19 +237,23 @@ public class Department {
         return null;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Department that = (Department) o;
-        return Objects.equals(name, that.name) && Arrays.equals(professors, that.professors);
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        Department that = (Department) o;
+//        return Objects.equals(name, that.name) && Arrays.equals(professors, that.professors);
+//    }
 
     //equals helper
+//    @Override
+//    public int hashCode() {
+//        int result = Objects.hash(name);
+//        result = 31 * result + Arrays.hashCode(professors);
+//        return result;
+//    }
     @Override
-    public int hashCode() {
-        int result = Objects.hash(name);
-        result = 31 * result + Arrays.hashCode(professors);
-        return result;
+    public String toString() {
+        return name;
     }
 }

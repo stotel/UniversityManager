@@ -126,6 +126,8 @@ public class Department {
                         removeProfessor((Professor) per);
                         newDep.addProfessor((Professor) per);
                     }
+                } else {
+                    System.out.println("Такої кафедри не існує");
                 }
                 break;
             default:

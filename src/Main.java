@@ -5,6 +5,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         NaUKMA uni = new NaUKMA();
         Student[] allStudents;
+        Faculty f;
+        Department d;
         while (true) {
             System.out.println("Оберіть дію:");
             System.out.println("1. Створити/видалити/редагувати факультет");
@@ -46,22 +48,95 @@ public class Main {
                     // Вивести всіх студентів/викладачів факультета впорядкованих за алфавітом
                     System.out.println("Студенти:");
                     allStudents = findAllStudents();
-                    sortStudentsByName(allStudents);
+                    sortPersonsByName(allStudents);
                     for(Student s:allStudents){
                         System.out.println(s);
                     }
                     break;
                 case 7:
                     // Вивести всіх студентів кафедри впорядкованих за курсами
+                    f = NaUKMA.findFaculty(DataInput.getString("факультет"));
+                    if(f!=null){
+                        d = f.findDepartment(DataInput.getString("кафедра"));
+                        if(d!=null){
+                            Student[] s = d.getStudents();
+                            sortPersonsByName(s);
+                            for(Student i:s){
+                                System.out.println(i);
+                            }
+                        }else{
+                            System.out.println("кафедра не існує");
+                        }
+                    }else{
+                        System.out.println("факультет не існує");
+                    }
                     break;
                 case 8:
+                    f = NaUKMA.findFaculty(DataInput.getString("факультет"));
+                    if(f!=null) {
+                        d = f.findDepartment(DataInput.getString("кафедра"));
+                        if (d != null) {
+                            System.out.println("Студенти:");
+                            Person[] p = d.getStudents();
+                            sortPersonsByName(p);
+                            for(Person i:p){
+                                System.out.println(i);
+                            }
+                            System.out.println("Професори:");
+                            Professor[] s = d.getProfessors();
+                            sortPersonsByName(s);
+                            for(Professor i:s){
+                                System.out.println(i);
+                                //System.out.println("______");
+                            }
+                        }else{
+                            System.out.println("кафедра не існує");
+                        }
+                    }else{
+                        System.out.println("факультет не існує");
+                    }
                     // Вивести всіх студентів/викладачів кафедри впорядкованих за алфавітом
                     break;
                 case 9:
                     // Вивести всіх студентів кафедри вказаного курсу
+                    int course = DataInput.getInt("курс");
+                    f = NaUKMA.findFaculty(DataInput.getString("факультет"));
+                    if(f!=null) {
+                        d = f.findDepartment(DataInput.getString("кафедра"));
+                        if (d != null) {
+                            Student[] ss = d.getStudents();
+                            for(Student i:ss){
+                                if(i.getCourse()==course){
+                                    System.out.println(i);
+                                }
+                            }
+                        }else{
+                            System.out.println("кафедра не існує");
+                        }
+                    }else{
+                        System.out.println("факультет не існує");
+                    }
                     break;
                 case 10:
                     // Вивести всіх студентів кафедри вказаного курсу впорядкованих за алфавітом
+                    int course1 = DataInput.getInt("курс");
+                    f = NaUKMA.findFaculty(DataInput.getString("факультет"));
+                    if(f!=null) {
+                        d = f.findDepartment(DataInput.getString("кафедра"));
+                        if (d != null) {
+                            Student[] sss = d.getStudents();
+                            sortPersonsByName(sss);
+                            for(Student i:sss){
+                                if(i.getCourse()==course1){
+                                    System.out.println(i);
+                                }
+                            }
+                        }else{
+                            System.out.println("кафедра не існує");
+                        }
+                    }else{
+                        System.out.println("факультет не існує");
+                    }
                     break;
                 case 0:
                     System.out.println("До побачення!");
@@ -93,10 +168,10 @@ public class Main {
             arr[j + 1] = key;
         }
     }
-    public static void sortStudentsByName(Student[] arr){
+    public static void sortPersonsByName(Person[] arr){
         int n = arr.length;
         for (int i = 1; i < n; ++i) {
-            Student key = arr[i];
+            Person key = arr[i];
             int j = i - 1;
             while (j >= 0 && (arr[j].getName()+arr[j].getSurname()).compareTo(key.getName()+key.getSurname()) > 0) {
                 arr[j + 1] = arr[j];

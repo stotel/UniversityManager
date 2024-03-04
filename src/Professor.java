@@ -6,7 +6,7 @@ public class Professor extends Person {
 
     public void setDepartment(Department d){ department = d;}
 
-    /** Professor constructor
+    /**8 Professor constructor
      * @param surname
      * @param name
      */
@@ -30,6 +30,6 @@ public class Professor extends Person {
 
     @Override
     public String toString() {
-        return "Викладач " + getSurname() + " " + getName() + " - факультет " + getFaculty() + " ; кафедра " + getDepartment();
+        return "Викладач " + getSurname() + " " + getName() /* + " - факультет " + getFaculty() + " ; кафедра " + getDepartment()*/;
     }
 }

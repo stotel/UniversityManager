@@ -1,6 +1,7 @@
 import Utils.*;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class Main {
 
@@ -57,6 +58,12 @@ public class Main {
                     for(Student s:allStudents){
                         System.out.println(s);
                     }
+                    System.out.println("Викладчі:");
+                    Professor[] professors = findAllProfessors();
+                    sortPersonsByName(professors);
+                    for(Professor s:professors){
+                        System.out.println(s);
+                    }
                     break;
                 case 7:
                     // Вивести всіх студентів кафедри впорядкованих за курсами
@@ -65,7 +72,7 @@ public class Main {
                         d = f.findDepartment(DataInput.getString("кафедра"));
                         if(d!=null){
                             Student[] s = d.getStudents();
-                            sortPersonsByName(s);
+                            sortStudentsByCourse(s);
                             for(Student i:s){
                                 System.out.println(i);
                             }
@@ -92,7 +99,6 @@ public class Main {
                             sortPersonsByName(s);
                             for(Professor i:s){
                                 System.out.println(i);
-                                //System.out.println("______");
                             }
                         }else{
                             System.out.println("кафедра не існує");
@@ -156,7 +162,22 @@ public class Main {
         Student[] s = new Student[0];
         for(Faculty f: NaUKMA.getFaculties()){
             for(Department d:f.getDepartments()){
-                Utils.append(s,d.getStudents());
+                for (Student i:d.getStudents()){
+                    s = Arrays.copyOf(s,s.length+1);
+                    s[s.length-1] = i;
+                }
+            }
+        }
+        return s;
+    }
+    public static Professor[] findAllProfessors(){
+        Professor[] s = new Professor[0];
+        for(Faculty f: NaUKMA.getFaculties()){
+            for(Department d:f.getDepartments()){
+                for (Professor i:d.getProfessors()){
+                    s = Arrays.copyOf(s,s.length+1);
+                    s[s.length-1] = i;
+                }
             }
         }
         return s;
@@ -178,7 +199,7 @@ public class Main {
         for (int i = 1; i < n; ++i) {
             Person key = arr[i];
             int j = i - 1;
-            while (j >= 0 && (arr[j].getName()+arr[j].getSurname()).compareTo(key.getName()+key.getSurname()) > 0) {
+            while (j >= 0 && (arr[j].getSurname()+arr[j].getName()).compareTo(key.getSurname()+key.getName()) > 0) {
                 arr[j + 1] = arr[j];
                 j = j - 1;
             }

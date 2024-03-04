@@ -10,22 +10,25 @@ public class NaUKMA {
 
     {
         addFaculty(new Faculty("ФІ"));
-        Department depInit = new Department("Кафедра інформатики");
+        Department depInit1 = new Department("Кафедра інформатики");
+        Department depInit2 = new Department("Кафедра пустоти");
         Professor prfInit = new Professor("Кирієнко", "Оксана");
-        Student stdInit1 = new Student(1, 5, "Гущін", "Іван");
-        Student stdInit2 = new Student(1, 5, "Стецик", "Максим");
+        Student stdInit1 = new Student(4, 5, "Гущін", "Іван");
+        Student stdInit2 = new Student(2, 5, "Стецик", "Максим");
         Student stdInit3 = new Student(1, 5, "Рублевський", "Орест");
+        Student stdInit4 = new Student(3, 5, "Гущ", "Наві");
+        Student stdInit5 = new Student(2, 5, "Кроп", "Марк");
+        Student stdInit6 = new Student(4, 5, "Паруга", "Віка");
 
-        faculties[0].addDepartment(depInit);
+        faculties[0].addDepartment(depInit1);
+        faculties[0].addDepartment(depInit2);
         faculties[0].addProfessor(prfInit,"Кафедра інформатики");
         faculties[0].addStudent(stdInit1,"Кафедра інформатики");
         faculties[0].addStudent(stdInit2,"Кафедра інформатики");
         faculties[0].addStudent(stdInit3,"Кафедра інформатики");
-
-        depInit.addProfessor(prfInit);
-        depInit.addStudent(stdInit1);
-        depInit.addStudent(stdInit2);
-        depInit.addStudent(stdInit3);
+        faculties[0].addStudent(stdInit4,"Кафедра пустоти");
+        faculties[0].addStudent(stdInit5,"Кафедра пустоти");
+        faculties[0].addStudent(stdInit6,"Кафедра пустоти");
     }
 
     public static Faculty[] getFaculties() {

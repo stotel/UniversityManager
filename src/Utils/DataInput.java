@@ -31,8 +31,8 @@ public final class DataInput {
         try {
             value = Integer.valueOf(s);
         }catch (Exception e){
-            getInt("Це не ціле число!, спробуйте ще раз");
-            value = 0;
+
+            value = getInt("Це не ціле число!, спробуйте ще раз");;
         }
         return value;
 

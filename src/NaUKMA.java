@@ -9,7 +9,7 @@ public class NaUKMA {
         return instance;
     }
 
-    private Faculty[] faculties = new Faculty[0];
+    private static Faculty[] faculties = new Faculty[0];
 
     public NaUKMA(){
         instance = this;
@@ -192,7 +192,7 @@ public class NaUKMA {
         return findFaculty(name);
     }
 
-    public Department findDepartment(String name) {
+    public static Department findDepartment(String name) {
         for (Faculty f : faculties) {
             Department d = f.findDepartment(name);
             if (d != null) {
@@ -225,7 +225,7 @@ public class NaUKMA {
     }
 
 
-    public Faculty findFaculty(String name) {
+    public static Faculty findFaculty(String name) {
         for (Faculty faculty : faculties) {
             if (faculty.getName().equals(name)) {
                 return faculty;

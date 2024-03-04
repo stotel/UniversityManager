@@ -7,8 +7,6 @@ import java.util.Objects;
 public class Faculty {
     private String name;
     private Department[] departments = new Department[0];
-    //private Student[] students = new Student[0];
-    //private Professor[] professors = new Professor[0];
 
     public Faculty(String name) {
         this.name = name;
@@ -152,24 +150,6 @@ public class Faculty {
         }
         return null;
     }
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        Faculty faculty = (Faculty) o;
-//        return Objects.equals(name, faculty.name) && Arrays.equals(departments, faculty.departments);
-//    }
-//
-//    //equals helper
-//    @Override
-//    public int hashCode() {
-//        int result = Objects.hash(name);
-//        result = 31 * result + Arrays.hashCode(departments);
-//        //result = 31 * result + Arrays.hashCode(students);
-//        return result;
-//    }
-
 
     @Override
     public String toString() {

@@ -39,19 +39,7 @@ public class NaUKMA {
         return faculties;
     }
 
-    /*public Department[] getDepartments() {
-        int len = 0;
-        Department[] deps = new Department[len];
-        for (Faculty f : faculties) {
-            Department[] fd = f.getDepartments();
-            System.arraycopy(fd, 0, deps, len, fd.length);
-            len += fd.length;
-        }
-        departments = deps;
-        return departments;
-    }*/
-
-    public void addFaculty(Faculty faculty) {
+    public  void addFaculty(Faculty faculty) {
         faculties = Arrays.copyOf(faculties, faculties.length + 1);
         faculties[faculties.length - 1] = faculty;
     }
@@ -73,18 +61,6 @@ public class NaUKMA {
         }
     }
 
-    /*public void addStudentToDep(Student student, String depName) {
-        for (Faculty f : faculties) {
-            Department dep = f.findDepartment(depName);
-            if (dep != null) {
-                dep.addStudent(student);
-                return;
-            } else {
-                System.out.println("Такої кафедри не існує");
-            }
-        }
-    }*/
-
     public void addProfessor(Professor professor, String facName,String depName) {
         Faculty f = findFaculty(facName);
         if (f != null) {
@@ -93,18 +69,6 @@ public class NaUKMA {
             System.out.println("Такого факультету не існує");
         }
     }
-
-    /*public void addProfessorToDep(Professor professor, String depName) {
-        for (Faculty f : faculties) {
-            Department dep = f.findDepartment(depName);
-            if (dep != null) {
-                dep.addProfessor(professor);
-                return;
-            } else {
-                System.out.println("Такої кафедри не існує");
-            }
-        }
-    }*/
 
     public void removeFaculty(String name) {
         Faculty f = getFaculty(name);

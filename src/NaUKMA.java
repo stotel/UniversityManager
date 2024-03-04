@@ -92,7 +92,6 @@ public class NaUKMA {
         Student s = getStudent(name, sname);
         if (s != null) {
             s.getFaculty().removeStudent(s,s.getDepartment().getName());
-            //s.getDepartment().removeStudent(s);
         }
     }
 
@@ -100,7 +99,6 @@ public class NaUKMA {
         Professor p = getProfessor(name, sname);
         if (p != null) {
             p.getFaculty().removeProfessor(p,p.getDepartment().getName());
-            //p.getDepartment().removeProfessor(p);
         }
     }
 

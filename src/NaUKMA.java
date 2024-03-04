@@ -1,6 +1,7 @@
+import Utils.*;
+
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Objects;
 
 public class NaUKMA {
 
@@ -108,7 +109,7 @@ public class NaUKMA {
     }
 
     public void removeDepartment(String name) {
-        Department d = getDepartment(name);
+        Department d = findDepartment(name);
         if (d != null) {
             d.getFaculty().removeDepartment(d);
         }
@@ -163,7 +164,7 @@ public class NaUKMA {
         return findFaculty(name);
     }
 
-    public Department getDepartment(String name) {
+    public static Department findDepartment(String name) {
         for (Faculty f : faculties) {
             Department d = f.findDepartment(name);
             if (d != null) {

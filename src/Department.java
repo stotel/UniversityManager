@@ -1,3 +1,5 @@
+import Utils.*;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Objects;
@@ -20,7 +22,7 @@ public class Department {
         return name;
     }
 
-    public void setFaculty(Faculty f){
+    public void setFaculty(Faculty f) {
         faculty = f;
     }
 
@@ -145,9 +147,9 @@ public class Department {
                     case 2:
                         removeProfessor(DataInput.getString("Введіть ім'я викладача: "), DataInput.getString("Введіть прізвище викладача: "));
                         break;
-                    case  3:
-                      changeProfessor(DataInput.getString("Введіть ім'я викладача: "), DataInput.getString("Введіть прізвище викладача: "));
-                      break;
+                    case 3:
+                        changeProfessor(DataInput.getString("Введіть ім'я викладача: "), DataInput.getString("Введіть прізвище викладача: "));
+                        break;
                 }
                 break;
             case 2:
@@ -160,7 +162,7 @@ public class Department {
                     case 2:
                         removeStudent(DataInput.getString("Введіть ім'я студента: "), DataInput.getString("Введіть прізвище студента: "));
                         break;
-                    case  3:
+                    case 3:
                         changeStudent(DataInput.getString("Введіть ім'я студента: "), DataInput.getString("Введіть прізвище студента: "));
                         break;
                 }

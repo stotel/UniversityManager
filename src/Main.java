@@ -172,7 +172,7 @@ public class Main {
     }
     public static Professor[] findAllProfessors(){
         Professor[] s = new Professor[0];
-        for(Faculty f: NaUKMA.getFaculties()){
+        for(Faculty f: NaUKMA.getInstance().getFaculties()){
             for(Department d:f.getDepartments()){
                 for (Professor i:d.getProfessors()){
                     s = Arrays.copyOf(s,s.length+1);

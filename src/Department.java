@@ -130,6 +130,8 @@ public class Department {
                 if (!personExists(newName, newSname)) {
                     per.setName(newName);
                     per.setSurname(newSname);
+                } else {
+                    System.out.println("Людина з таким іменем і прізвищем уже є");
                 }
                 break;
             case 2:
@@ -159,8 +161,13 @@ public class Department {
                 action = DataInput.getInt("Оберіть дію з людиною на кафедрі: \n1. Додати \n2. Видалити \n3. Редагувати \n");
                 switch (action) {
                     case 1:
-                        Professor newProf = new Professor(DataInput.getString("Введіть прізвище"), DataInput.getString("Введіть ім'я"));
-                        addProfessor(newProf);
+                        String name = DataInput.getString("Введіть нове ім'я: ");
+                        String sname = DataInput.getString("Введіть нове прізвище: ");
+                        if (!personExists(name, sname)) {
+                            addProfessor(new Professor(sname, name));
+                        } else {
+                            System.out.println("Людина з таким іменем і прізвищем уже є");
+                        }
                         break;
                     case 2:
                         removeProfessor(DataInput.getString("Введіть ім'я викладача: "), DataInput.getString("Введіть прізвище викладача: "));
@@ -174,8 +181,13 @@ public class Department {
                 action = DataInput.getInt("Оберіть дію з людиною на кафедрі: \n1. Додати \n2. Видалити \n3. Редагувати \n");
                 switch (action) {
                     case 1:
-                        Student newStud = new Student(DataInput.getInt("Введіть курс студента: "), DataInput.getInt("Введіть групу студента: "), DataInput.getString("Введіть прізвище студента"), DataInput.getString("Введіть ім'я студента"));
-                        addStudent(newStud);
+                        String name = DataInput.getString("Введіть нове ім'я: ");
+                        String sname = DataInput.getString("Введіть нове прізвище: ");
+                        if (!personExists(name, sname)) {
+                            addStudent(new Student(DataInput.getInt("Введіть курс студента: "), DataInput.getInt("Введіть групу студента: "), sname, name));
+                        } else {
+                            System.out.println("Людина з таким іменем і прізвищем уже є");
+                        }
                         break;
                     case 2:
                         removeStudent(DataInput.getString("Введіть ім'я студента: "), DataInput.getString("Введіть прізвище студента: "));
@@ -192,8 +204,14 @@ public class Department {
     }
 
     public boolean personExists(String name, String sname) {
+        Person per;
         for (Faculty f : NaUKMA.getFaculties()) {
-            Person per = f.findStudent(name, sname);
+            per = f.findStudent(name, sname);
+            if (per != null) {
+                return true;
+            }
+
+            per = f.findProfessor(name, sname);
             if (per != null) {
                 return true;
             }

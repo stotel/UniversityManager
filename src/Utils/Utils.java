@@ -8,7 +8,10 @@ public class Utils {
         int entryIndex = findFirst(o, obs);
         if(entryIndex >= 0) {
             obs[entryIndex] = obs[obs.length - 1];
-            obs = Arrays.copyOf(obs, obs.length - 1);
+            if(entryIndex == 0)
+                obs[0] = null;
+            else
+                obs = Arrays.copyOf(obs, obs.length - 1);
         }
     }
     public static void append(Object[] o1, Object[] o2){

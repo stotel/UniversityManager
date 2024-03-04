@@ -10,7 +10,6 @@ public class NaUKMA {
     }
 
     private Faculty[] faculties = new Faculty[0];
-    //private Department[] departments;
 
     public NaUKMA(){
         instance = this;
@@ -42,7 +41,7 @@ public class NaUKMA {
         return faculties;
     }
 
-    public  void addFaculty(Faculty faculty) {
+    public void addFaculty(Faculty faculty) {
         faculties = Arrays.copyOf(faculties, faculties.length + 1);
         faculties[faculties.length - 1] = faculty;
     }

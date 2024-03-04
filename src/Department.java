@@ -46,6 +46,7 @@ public class Department {
         professors = Arrays.copyOf(professors, professors.length + 1);
         professors[professors.length - 1] = professor;
         professor.setDepartment(this);
+        professor.setFaculty(getFaculty());
         //faculty.addProfessor(professor);
     }
 
@@ -65,6 +66,7 @@ public class Department {
         if (p != null) {
             Utils.remove(p, professors);
             p.setDepartment(null);
+            p.setFaculty(null);
         } else {
             System.out.println("Такого викладача не існує");
         }
@@ -78,6 +80,7 @@ public class Department {
         if (s != null) {
             Utils.remove(s, students);
             s.setDepartment(null);
+            s.setFaculty(null);
         } else {
             System.out.println("Такого студента не існує");
         }
@@ -115,9 +118,10 @@ public class Department {
             switch (choice) {
                 case 3:
                     ((Student) per).setCourse(DataInput.getInt("Введіть новий курс студента: "));
-                    break;
+                    return;
                 case 4:
                     ((Student) per).setGroup(DataInput.getInt("Введіть нову групу студента: "));
+                    return;
                 default:
             }
         } else

@@ -163,8 +163,10 @@ public class Main {
         for(Faculty f: NaUKMA.getInstance().getFaculties()){
             for(Department d:f.getDepartments()){
                 for (Student i:d.getStudents()){
-                    s = Arrays.copyOf(s,s.length+1);
-                    s[s.length-1] = i;
+                    if(i != null) {
+                        s = Arrays.copyOf(s, s.length + 1);
+                        s[s.length - 1] = i;
+                    }
                 }
             }
         }
@@ -175,8 +177,10 @@ public class Main {
         for(Faculty f: NaUKMA.getInstance().getFaculties()){
             for(Department d:f.getDepartments()){
                 for (Professor i:d.getProfessors()){
-                    s = Arrays.copyOf(s,s.length+1);
-                    s[s.length-1] = i;
+                    if(i!=null) {
+                        s = Arrays.copyOf(s, s.length + 1);
+                        s[s.length - 1] = i;
+                    }
                 }
             }
         }

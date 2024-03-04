@@ -12,7 +12,7 @@ public class Utils {
         }
     }
     public static void append(Object[] o1, Object[] o2){
-        int s = o1.length-1;
+        int s = o1.length;
         o1 = Arrays.copyOf(o1,o1.length+o2.length);
         for(int i =0;i<o2.length;i++){
             o1[s+i]=o2[i];

@@ -6,8 +6,6 @@ public class Student extends Person {
 
     public int getCourse() { return course; }
     public int getGroup() { return group; }
-    public void setFaculty(Faculty f){ faculty = f; }
-    public void setDepartment(Department d){ department = d; }
     public void setCourse(int c){ course = c;}
     public void setGroup(int g){ group = g;}
 

@@ -86,8 +86,7 @@ public class Department {
 
     public void changeProfessor(Professor prf) throws IOException {
         if (prf != null) {
-            prf.setName(DataInput.getString("Введіть нове ім'я викладача: "));
-            prf.setSurname(DataInput.getString("Введіть нове прізвище викладача: "));
+            choiceOfChanges(prf);
         } else {
             System.out.println("Такого викладача не існує");
         }
@@ -99,10 +98,36 @@ public class Department {
 
     public void changeStudent(Student std) throws IOException {
         if (std != null) {
-            std.setName(DataInput.getString("Введіть нове ім'я студента: "));
-            std.setSurname(DataInput.getString("Введіть нове прізвище студента: "));
+            choiceOfChanges(std);
         } else {
             System.out.println("Такого студента не існує");
+        }
+    }
+
+    private void choiceOfChanges(Person per) throws IOException {
+        int choice = DataInput.getInt("Оберіть, що ви хочете змінити: \n1.Ім'я: \n2.Прізвище: \n3.Кафедру: \n");
+
+        switch (choice) {
+            case 1:
+                per.setName(DataInput.getString("Введіть нове ім'я: "));
+                break;
+            case 2:
+                per.setSurname(DataInput.getString("Введіть нове прізвище: "));
+                break;
+            case 3:
+                Department newDep = getFaculty().findDepartment(DataInput.getString("Вкажіть, на яку кафедру перевести: "));
+                if (newDep != null) {
+                    if (per instanceof Student) {
+                        removeStudent((Student) per);
+                        newDep.addStudent((Student) per);
+                    } else {
+                        removeProfessor((Professor) per);
+                        newDep.addProfessor((Professor) per);
+                    }
+                }
+                break;
+            default:
+                choiceOfChanges(per);
         }
     }
 

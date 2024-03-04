@@ -15,29 +15,29 @@ public class Main {
             System.out.println("4. Знайти студента/викладача за ПІБ, курсом або групою");
             System.out.println("5. Вивести всіх студентів впорядкованих за курсами");
             System.out.println("6. Вивести всіх студентів/викладачів факультета впорядкованих за алфавітом");
-            System.out.println("7. Вивести всіх студентів кафедри впорядкованих за курсами");
+            System.out.println("7. вивести всіх студентів кафедри впорядкованих за курсами");
             System.out.println("8. Вивести всіх студентів/викладачів кафедри впорядкованих за алфавітом");
             System.out.println("9. Вивести всіх студентів кафедри вказаного курсу");
             System.out.println("10. Вивести всіх студентів кафедри вказаного курсу впорядкованих за алфавітом");
             System.out.println("0. Вихід");
             switch (DataInput.getInt("your option:")) {
                 case 1:
-                    NaUKMA.facultyActions();
+                    uni.facultyActions();
                     break;
                 case 2:
-                    Faculty faculty = NaUKMA.findFaculty(DataInput.getString("Введіть назву факультета, в середині якого працюватемо: "));
+                    Faculty faculty = uni.findFaculty(DataInput.getString("Введіть назву факультета, з яким працюватемо: "));
                     if (faculty != null) {
                         faculty.departmentActions();
                     }
                     break;
                 case 3:
-                    Department department = NaUKMA.findDepartment(DataInput.getString("Введіть назву кафедри, в середині якої працюватемо: "));
+                    Department department = uni.findDepartment(DataInput.getString("Введіть назву кафедри, з якою працюватемо: "));
                     if (department != null) {
                         department.staffActions();
                     }
                     break;
                 case 4:
-                    NaUKMA.findPerson();
+                    uni.findPerson();
                     break;
                 case 5:
                     // Вивести всіх студентів впорядкованих за курсами
@@ -79,7 +79,7 @@ public class Main {
     }
     public static Student[] findAllStudents(){
         Student[] s = new Student[0];
-        for(Faculty f: NaUKMA.getFaculties()){
+        for(Faculty f: NaUKMA.getInstance().getFaculties()){
             for(Department d:f.getDepartments()){
                 Utils.append(s,d.getStudents());
             }

@@ -205,7 +205,7 @@ public class Department {
 
     public boolean personExists(String name, String sname) {
         Person per;
-        for (Faculty f : NaUKMA.getFaculties()) {
+        for (Faculty f : NaUKMA.getInstance().getFaculties()) {
             per = f.findStudent(name, sname);
             if (per != null) {
                 return true;

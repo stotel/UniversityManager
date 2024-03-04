@@ -4,10 +4,17 @@ import java.io.IOException;
 import java.util.Arrays;
 
 public class NaUKMA {
+    private static NaUKMA instance;
+    public static NaUKMA getInstance(){
+        return instance;
+    }
 
-    private static Faculty[] faculties = new Faculty[0];
+    private Faculty[] faculties = new Faculty[0];
     //private Department[] departments;
 
+    public NaUKMA(){
+        instance = this;
+    }
     {
         addFaculty(new Faculty("ФІ"));
         Department depInit = new Department("Кафедра інформатики");
@@ -28,7 +35,7 @@ public class NaUKMA {
         depInit.addStudent(stdInit3);
     }
 
-    public static Faculty[] getFaculties() {
+    public Faculty[] getFaculties() {
         return faculties;
     }
 
@@ -44,7 +51,7 @@ public class NaUKMA {
         return departments;
     }*/
 
-    public static void addFaculty(Faculty faculty) {
+    public void addFaculty(Faculty faculty) {
         faculties = Arrays.copyOf(faculties, faculties.length + 1);
         faculties[faculties.length - 1] = faculty;
     }
@@ -99,7 +106,7 @@ public class NaUKMA {
         }
     }*/
 
-    public static void removeFaculty(String name) {
+    public void removeFaculty(String name) {
         Faculty f = getFaculty(name);
         if (f != null) {
             Utils.remove(f, faculties);
@@ -131,7 +138,7 @@ public class NaUKMA {
         }
     }
 
-    public static void changeFaculty(Faculty faculty, String newName) {
+    public void changeFaculty(Faculty faculty, String newName) {
         if (faculty != null && findFaculty(newName) == null) {
             faculty.setName(newName);
         } else if (faculty == null) {
@@ -141,7 +148,7 @@ public class NaUKMA {
         }
     }
 
-    public static void facultyActions() throws IOException {
+    public void facultyActions() throws IOException {
         int choice = DataInput.getInt("Оберіть дію з факультетом: \n1. Створити \n2. Видалити \n3. Редагувати \n");
         switch (choice) {
             case 1:
@@ -160,7 +167,7 @@ public class NaUKMA {
         }
     }
 
-    public static void printPersonWithName(String name, String sname) {
+    public void printPersonWithName(String name, String sname) {
         Person found = getStudent(name, sname);
         if (found == null) {
             found = getProfessor(name, sname);
@@ -169,7 +176,7 @@ public class NaUKMA {
         System.out.println(found);
     }
 
-    public static Person[] printPeopleWithCourse(int course) {
+    public Person[] printPeopleWithCourse(int course) {
         Person[] found = new Person[20];
         int counter = 0;
 
@@ -187,7 +194,7 @@ public class NaUKMA {
         return found;
     }
 
-    public static void printPeopleWithGroup(int group) {
+    public void printPeopleWithGroup(int group) {
         for (Faculty f: faculties) {
             for (Department d: f.getDepartments()) {
                 for (Student s: d.getStudents()) {
@@ -199,7 +206,7 @@ public class NaUKMA {
         }
     }
 
-    public static void findPerson() throws IOException {
+    public void findPerson() throws IOException {
         int choice = DataInput.getInt("Як шукати людину? \n1.Ім'я та прізвище \n2.Курс \n3.Група \n");
 
         switch (choice) {
@@ -217,11 +224,11 @@ public class NaUKMA {
         }
     }
 
-    public static Faculty getFaculty(String name) {
+    public Faculty getFaculty(String name) {
         return findFaculty(name);
     }
 
-    public static Department findDepartment(String name) {
+    public Department findDepartment(String name) {
         for (Faculty f : faculties) {
             Department d = f.findDepartment(name);
             if (d != null) {
@@ -231,7 +238,7 @@ public class NaUKMA {
         return null;
     }
 
-    public static Student getStudent(String name, String sname) {
+    public Student getStudent(String name, String sname) {
         for (Faculty f : faculties) {
             Student s = f.findStudent(name, sname);
             if (s != null) {
@@ -241,7 +248,7 @@ public class NaUKMA {
         return null;
     }
 
-    public static Professor getProfessor(String name, String sname) {
+    public Professor getProfessor(String name, String sname) {
         for (Faculty f : faculties) {
             for (Department d : f.getDepartments()) {
                 Professor p = d.findProfessor(name, sname);
@@ -254,7 +261,7 @@ public class NaUKMA {
     }
 
 
-    public static Faculty findFaculty(String name) {
+    public Faculty findFaculty(String name) {
         for (Faculty faculty : faculties) {
             if (faculty.getName().equals(name)) {
                 return faculty;

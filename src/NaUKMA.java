@@ -160,6 +160,63 @@ public class NaUKMA {
         }
     }
 
+    public static void printPersonWithName(String name, String sname) {
+        Person found = getStudent(name, sname);
+        if (found == null) {
+            found = getProfessor(name, sname);
+        }
+
+        System.out.println(found);
+    }
+
+    public static Person[] printPeopleWithCourse(int course) {
+        Person[] found = new Person[20];
+        int counter = 0;
+
+        for (Faculty f: faculties) {
+            for (Department d: f.getDepartments()) {
+                for (Student s: d.getStudents()) {
+                    if (s.getCourse() == course) {
+                        System.out.println(s);
+                        found[counter++] = s;
+                    }
+                }
+            }
+        }
+
+        return found;
+    }
+
+    public static void printPeopleWithGroup(int group) {
+        for (Faculty f: faculties) {
+            for (Department d: f.getDepartments()) {
+                for (Student s: d.getStudents()) {
+                    if (s.getGroup() == group) {
+                        System.out.println(s);
+                    }
+                }
+            }
+        }
+    }
+
+    public static void findPerson() throws IOException {
+        int choice = DataInput.getInt("Як шукати людину? \n1.Ім'я та прізвище \n2.Курс \n3.Група \n");
+
+        switch (choice) {
+            case 1:
+                printPersonWithName(DataInput.getString("Введіть ім'я: "), DataInput.getString("Введіть прізвище"));
+                break;
+            case 2:
+                printPeopleWithCourse(DataInput.getInt("Введіть курс: "));
+                break;
+            case 3:
+                printPeopleWithGroup(DataInput.getInt("Введіть групу: "));
+                break;
+            default:
+                findPerson();
+        }
+    }
+
     public static Faculty getFaculty(String name) {
         return findFaculty(name);
     }
@@ -174,7 +231,7 @@ public class NaUKMA {
         return null;
     }
 
-    public Student getStudent(String name, String sname) {
+    public static Student getStudent(String name, String sname) {
         for (Faculty f : faculties) {
             Student s = f.findStudent(name, sname);
             if (s != null) {
@@ -184,18 +241,7 @@ public class NaUKMA {
         return null;
     }
 
-    public Student getStudent(int group, boolean courseInstead) {
-        for (Faculty f : faculties) {
-            Student s = (courseInstead) ? null : null;
-
-            if (s != null) {
-                return s;
-            }
-        }
-        return null;
-    }
-
-    public Professor getProfessor(String name, String sname) {
+    public static Professor getProfessor(String name, String sname) {
         for (Faculty f : faculties) {
             for (Department d : f.getDepartments()) {
                 Professor p = d.findProfessor(name, sname);

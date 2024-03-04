@@ -21,22 +21,22 @@ public class Student extends Person {
         this.group = group;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Student student = (Student) o;
-        return getCourse() == student.getCourse() && getGroup() == student.getGroup() && Objects.equals(getName(), student.getName())
-                && Objects.equals(getSurname(), student.getSurname())&& Objects.equals(getFaculty(), student.getFaculty());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getCourse(), getGroup(), getFaculty(), getName(), getSurname());
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        Student student = (Student) o;
+//        return getCourse() == student.getCourse() && getGroup() == student.getGroup() && Objects.equals(getName(), student.getName())
+//                && Objects.equals(getSurname(), student.getSurname())&& Objects.equals(getFaculty(), student.getFaculty());
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(getCourse(), getGroup(), getFaculty(), getName(), getSurname());
+//    }
 
     @Override
     public String toString() {
-        return "Студент " + getSurname() + " " + getName() + " - курс: " + getCourse() + " ; факультет " + getFaculty() + " ; група: " + getGroup();
+        return "Студент " + sname + " " + name + " - курс: " + course + " ; факультет " + faculty + " ; кафедра " + department +  " ; група: " + group;
     }
 }

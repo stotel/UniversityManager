@@ -153,20 +153,26 @@ public class Faculty {
         return null;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Faculty faculty = (Faculty) o;
-        return Objects.equals(name, faculty.name) && Arrays.equals(departments, faculty.departments);
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        Faculty faculty = (Faculty) o;
+//        return Objects.equals(name, faculty.name) && Arrays.equals(departments, faculty.departments);
+//    }
+//
+//    //equals helper
+//    @Override
+//    public int hashCode() {
+//        int result = Objects.hash(name);
+//        result = 31 * result + Arrays.hashCode(departments);
+//        //result = 31 * result + Arrays.hashCode(students);
+//        return result;
+//    }
 
-    //equals helper
+
     @Override
-    public int hashCode() {
-        int result = Objects.hash(name);
-        result = 31 * result + Arrays.hashCode(departments);
-        //result = 31 * result + Arrays.hashCode(students);
-        return result;
+    public String toString() {
+        return name;
     }
 }

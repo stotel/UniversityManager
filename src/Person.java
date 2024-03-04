@@ -37,5 +37,9 @@ public class Person {
     public void setDepartment(Department department) {
         this.department = department;
     }
+
+    public void setFaculty(Faculty faculty) {
+        this.faculty = faculty;
+    }
 }
 

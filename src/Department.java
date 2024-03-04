@@ -53,6 +53,7 @@ public class Department {
         students = Arrays.copyOf(students, students.length + 1);
         students[students.length - 1] = student;
         student.setDepartment(this);
+        student.setFaculty(getFaculty());
         //faculty.addStudent(student);
     }
 
@@ -107,16 +108,31 @@ public class Department {
     }
 
     private void choiceOfChanges(Person per) throws IOException {
-        int choice = DataInput.getInt("Оберіть, що ви хочете змінити: \n1.Ім'я: \n2.Прізвище: \n3.Кафедру: \n");
+        int choice;
+
+        if (per instanceof Student) {
+            choice = DataInput.getInt("Оберіть, що ви хочете змінити: \n1.Ім'я і прізвище: \n2.Кафедру: \n3.Курс \n4.Групу");
+            switch (choice) {
+                case 3:
+                    ((Student) per).setCourse(DataInput.getInt("Введіть новий курс студента: "));
+                    break;
+                case 4:
+                    ((Student) per).setGroup(DataInput.getInt("Введіть нову групу студента: "));
+                default:
+            }
+        } else
+            choice = DataInput.getInt("Оберіть, що ви хочете змінити: \n1.Ім'я і прізвище: \n2.Кафедру: \n");
 
         switch (choice) {
             case 1:
-                per.setName(DataInput.getString("Введіть нове ім'я: "));
+                String newName = DataInput.getString("Введіть нове ім'я: ");
+                String newSname = DataInput.getString("Введіть нове прізвище: ");
+                if (!personExists(newName, newSname)) {
+                    per.setName(newName);
+                    per.setSurname(newSname);
+                }
                 break;
             case 2:
-                per.setSurname(DataInput.getString("Введіть нове прізвище: "));
-                break;
-            case 3:
                 Department newDep = getFaculty().findDepartment(DataInput.getString("Вкажіть, на яку кафедру перевести: "));
                 if (newDep != null) {
                     if (per instanceof Student) {
@@ -175,6 +191,16 @@ public class Department {
 
     }
 
+    public boolean personExists(String name, String sname) {
+        for (Faculty f : NaUKMA.getFaculties()) {
+            Person per = f.findStudent(name, sname);
+            if (per != null) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Professor findProfessor(String name, String sname) {
         for (Professor p : professors) {
             if (p.getName().equals(name) && p.getSurname().equals(sname)) {
@@ -193,19 +219,23 @@ public class Department {
         return null;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Department that = (Department) o;
-        return Objects.equals(name, that.name) && Arrays.equals(professors, that.professors);
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        Department that = (Department) o;
+//        return Objects.equals(name, that.name) && Arrays.equals(professors, that.professors);
+//    }
 
     //equals helper
+//    @Override
+//    public int hashCode() {
+//        int result = Objects.hash(name);
+//        result = 31 * result + Arrays.hashCode(professors);
+//        return result;
+//    }
     @Override
-    public int hashCode() {
-        int result = Objects.hash(name);
-        result = 31 * result + Arrays.hashCode(professors);
-        return result;
+    public String toString() {
+        return name;
     }
 }
